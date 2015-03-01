@@ -89,17 +89,17 @@ You can pass options when calling ````new Log(options)````. Options is an object
 
 ## methods
 ### .emergency(args), .emer, .mrgc, .em
-Logs a message with logLevel = 'emergency'.
+Logs a message with logLevel 1 = 'emergency'.
 ### .alert(args), .aler, .alrt, .al
-Logs a message with logLevel = 'alert'.
+Logs a message with logLevel 2 = 'alert'.
 ### .critical(args), .crit, .crtc, .cr
-Logs a message with logLevel = 'critical'.
+Logs a message with logLevel 3 = 'critical'.
 ### .error(args), .erro, .rror, .er
-Logs a message with logLevel = 'error'.
+Logs a message with logLevel 4 = 'error'.
 ### .warning(args), .warn, .wrng, .wa
-Logs a message with logLevel = 'warning'.
+Logs a message with logLevel 5 = 'warning'.
 ### .notice(args), .noti, .notc, .no
-Logs a message with logLevel = 'notice'.
+Logs a message with logLevel 6 = 'notice'.
 ### .info(args), .in
 Logs a message with logLevel 7 = 'info'.
 ### .debug(args), debu, .dbug, .de
