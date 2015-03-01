@@ -2,6 +2,8 @@
 A file and stdout logger for [node.js](https://nodejs.org), supports namespaces, colors, compressed time strings and 8 log levels.
 
 ## example
+![screenshot](https://github.com/dodekeract/raw/raw/master/compact-log.png)
+
 ````javascript
 	var Log = require('./index.js');
 	var log = new Log({
