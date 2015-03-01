@@ -2,52 +2,52 @@
 A file and stdout logger for [node.js](https://nodejs.org), supports namespaces, colors, compressed time strings and 8 log levels.
 
 ## example
-![screenshot](https://github.com/dodekeract/raw/raw/master/compact-log.png)
+![screenshot](https://github.com/dodekeract/raw/raw/master/compact-log.png)	
 
 ````javascript
-	var Log = require('./index.js');
-	var log = new Log({
-		path: __dirname + '/log',
-		levelMode: 'smartNoBrackets'
-	});
+var Log = require('compact-log');
+var log = new Log({
+	path: __dirname + '/log',
+	levelMode: 'smartNoBrackets'
+});
 
-	log.emergency('emergency');
-	log.alert('alert');
-	log.critical('critical');
-	log.error('error');
-	log.warning('warning');
-	log.separator();
-	log.notice('notice');
-	log.info('info');
-	log.debug('debug');
-	log.separator('Separators can use text.', 'info');
-	log.info('It\'s able to use %s formats!', 'stuff');
-	log.separator('emergency separator', 'emergency');
-	log.debug('You can even dump objects.', {
-		test: true,
-		woah: 'affirmative'
-	});
-	log.de('You can use');
-	log.dbug('some shorter');
-	log.debu('variations to log!');
-	log.warning('This is a really long line, which will probably overflow the width of this console window.');
+log.emergency('emergency');
+log.alert('alert');
+log.critical('critical');
+log.error('error');
+log.warning('warning');
+log.separator();
+log.notice('notice');
+log.info('info');
+log.debug('debug');
+log.separator('Separators can use text.', 'info');
+log.info('It\'s able to use %s formats!', 'stuff');
+log.separator('emergency separator', 'emergency');
+log.debug('You can even dump objects.', {
+	test: true,
+	woah: 'affirmative'
+});
+log.de('You can use');
+log.dbug('some shorter');
+log.debu('variations to log!');
+log.warning('This is a really long line, which will probably overflow the width of this console window.');
 
-	var ns = log.createNamespace({
-		name: 'test'
-	});
+var ns = log.createNamespace({
+	name: 'test'
+});
 
-	ns.sepa('Even separators can use short functions.');
-	ns.info('Namespaces, yay!');
-	ns.se(false, 'alert');
+ns.sepa('Even separators can use short functions.');
+ns.info('Namespaces, yay!');
+ns.se(false, 'alert');
 
-	var time = log.createNamespace({
-		name: 'compressed time test'
-	});
+var time = log.createNamespace({
+	name: 'compressed time test'
+});
 
-	var n = 0;
-	setInterval(function () {
-		time.debug(n++);
-	}, 1000);
+var n = 0;
+setInterval(function () {
+	time.debug(n++);
+}, 1000);
 ````
 
 ## installation
