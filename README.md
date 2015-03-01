@@ -75,15 +75,15 @@ You can pass options when calling ````new Log(options)````. Options is an object
 |               prettyJSON|true             |prints the log file's JSON with tab characters and newlines                                                                                   |
 
 ### Accepted values for these options
-- *logLevel:* none, emergency, alert, critical, error, warning, notice, info, *debug*, 0-8
-- *consoleLogLevel:* none, emergency, alert, critical, error, warning, notice, info, *debug*, 0-8
-- *fileLogLevel:* none, emergency, alert, critical, error, warning, notice, info, *debug*, 0-8
-- *separatorLogLevel:* none, emergency, alert, critical, error, warning, notice, info, *debug*, 0-8
-- *compressedTime:* none, year, month, *day*, hour, minute, second
-- *levelMode:* short, smart, full, tiny, *shortNoBrackets*, smartNoBrackets, fullNoBrackets, tinyNoBrackets, numbers, single
-- *path:* *false* or any path to a (existing or non-existing) folder
-- *compressedTimeAsSeparator:* *true*, false
-- *prettyJSON:* *true*, false
+- **logLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
+- **consoleLogLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
+- **fileLogLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
+- **separatorLogLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
+- **compressedTime:** none, year, month, **day**, hour, minute, second
+- **levelMode:** short, smart, full, tiny, **shortNoBrackets**, smartNoBrackets, fullNoBrackets, tinyNoBrackets, numbers, single
+- **path:** **false** or any path to a (existing or non-existing) folder
+- **compressedTimeAsSeparator:** **true**, false
+- **prettyJSON:** **true**, false
 
 ## methods
 ### .emergency(args), .emer, .mrgc, .em
