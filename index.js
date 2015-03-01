@@ -447,7 +447,7 @@ Module.prototype.logger = function (l, args, namespace) {
 		for (var i = 0; i < args.length; i++) {
 			if (typeof args[i] == 'object') {
 				dump.push(args[i]);
-				if (args[0].search('%j') != -1) realArgs.push(args[i]);
+				if (typeof args[0] == 'string' && args[0].search('%j') != -1) realArgs.push(args[i]);
 			} else {
 				realArgs.push(args[i]);
 			}
