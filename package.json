@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "cli-color": "0.x",
-    "log": "1.x",
     "mkdirp": "0.x",
     "moment": "2.x"
   },
