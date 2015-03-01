@@ -1,0 +1,33 @@
+{
+  "name": "compact-log",
+  "version": "0.0.1",
+  "description": "A file and stdout logger, supports namespaces, colors, compressed time strings, json dumps and 8 log levels.",
+  "main": "index.js",
+  "dependencies": {
+    "cli-color": "0.x",
+    "log": "1.x",
+    "mkdirp": "0.x",
+    "moment": "2.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dodekeract/node-log"
+  },
+  "keywords": [
+    "log",
+    "color",
+    "compressed",
+    "compact",
+    "time",
+    "file",
+    "level",
+    "namespace",
+    "namespaces"
+  ],
+  "author": "Florian Wendelborn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dodekeract/node-log/issues"
+  },
+  "homepage": "https://github.com/dodekeract/node-log"
+}
