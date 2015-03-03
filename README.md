@@ -107,11 +107,15 @@ Logs a message with logLevel 8 = 'debug'.
 ### .separator(text, logLevel), .sepa, .se
 Creates a separator consisting of a dashed line (-----). If text is specified it will show this text in the line's center. ````logLevel```` will override the default ````separatorLogLevel````.
 ### .createNamespace(options)
-Creates a namespace. Namespaces will automatically append their name to the log message. Options currently only supports ````name: 'enter name here'````.
+Creates a namespace. Namespaces will automatically append their name to the log message. Options supports ````name: 'enter name here'```` and ````colors: ['array of colors']````. The supported colors are based on [cli-color](https://www.npmjs.com/package/cli-color).
 Example:
 ````javascript
-var ns = log.createNamespace({name: 'test'});
+var ns = log.createNamespace({
+	name: 'test',
+	colors: ['bgYellowBright', 'black']
+});
 ns.info('It worked!');
+// INFO 12:34:56 test It worked!
 ````
 
 ## Example File Log

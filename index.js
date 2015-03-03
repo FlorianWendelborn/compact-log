@@ -293,6 +293,16 @@ Module.prototype.createNamespace = function(options) {
 	ns.compressedTime = this.compressedTime;
 	ns.levelMode = this.levelMode;
 	ns.name = options.name;
+	if (!options.colors) {
+		ns.color = color.bgWhite.black;
+	} else {
+		var c;
+		for (var i = 0; i < options.colors.length; i++) {
+			if (i === 0) c = color[options.colors[i]];
+			if (i !== 0) c = c[options.colors[i]];
+		}
+		ns.color = c;
+	}
 	ns.parent = this;
 	return ns;
 };
@@ -363,7 +373,7 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' '
 				+ time
-				+ color.bgWhite.black(this.name) + ' '
+				+ this.color(this.name) + ' '
 				+ logLevel[l].color((Array(Math.floor(half)).join('-')
 				+ text
 				+ Array(Math.ceil(half)).join('-')))
@@ -372,7 +382,7 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' '
 				+ time
-				+ color.bgWhite.black(this.name) + ' '
+				+ this.color(this.name) + ' '
 				+ logLevel[l].color(Array(width-this.level(l-1).length-this.name.length-time.length-1).join('-'))
 			);
 		}
@@ -386,7 +396,7 @@ Module.prototype.Namespace.prototype.applyLogLevel = function (l, args) {
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' '
 				+ this.time()
-				+ color.bgWhite.black(this.name) + ' '
+				+ this.color(this.name) + ' '
 				+ message
 			);
 		}

@@ -34,7 +34,8 @@ ns.info('Namespaces, yay!');
 ns.se(false, 'alert');
 
 var time = log.createNamespace({
-    name: 'compressed time test'
+    name: 'compressed time test',
+    colors: ['bgYellowBright', 'black']
 });
 
 var n = 0;
