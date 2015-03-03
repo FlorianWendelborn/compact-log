@@ -200,9 +200,9 @@ function Module (options) {
 	}
 
 	// other options
-	this.path = options.path || false;
-	this.compressedTimeAsSeparator = options.compressedTimeAsSeparator || true;
-	this.prettyJSON = options.prettyJSON || true;
+	this.path = (typeof options.path === 'undefined')?false:options.path;
+	this.prettyJSON = (typeof options.prettyJSON === 'undefined')?true:options.prettyJSON;
+	this.compressedTimeAsSeparator = (typeof options.compressedTimeAsSeparator === 'undefined')?true:options.compressedTimeAsSeparator;
 
 	// check log path
 	if (this.path) {
