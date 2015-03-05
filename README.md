@@ -70,7 +70,7 @@ You can pass options when calling ````new Log(options)````. Options is an object
 |          consoleLogLevel|=logLevel        |overrides the logLevel for consoleLogs only                                                                                                  |
 |             fileLogLevel|=logLevel        |overrides the logLevel for fileLogs only                                                                                                     |
 |        separatorLogLevel|=logLevel        |sets the default logLevel for separators                                                                                                      |
-|           compressedTime|'day'            |shortens the timestamp of each output and logs a time-update output when the given time period is exceeded (e.g. ever day) and a log is issued|
+|           compressedTime|'day'            |shortens the timestamp of each output and logs a time-update output when the given time period is exceeded (e.g. every day) and a log is issued|
 |                levelMode|'shortNoBrackets'|allows changing of the level names (e.g. ERROR -> E)                                                                                          |
 |                     path|false            |sets the log folder                                                                                                                           |
 |compressedTimeAsSeparator|true             |allows disabling the separator layout for compressedTime-messages                                                                             |
