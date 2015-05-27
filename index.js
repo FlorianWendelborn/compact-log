@@ -132,82 +132,36 @@ var levelMode = {
 	SINGLE: 9
 };
 
+function applyOption (compare, value, defaultValue) {
+	if (value) {
+		if (typeof value === 'string') {
+			return compare[value.toUpperCase()];
+		} else {
+			return value;
+		}
+	} else {
+		return defaultValue;
+	}
+}
+
 function Module (options) {
 	// clear console if desired
 	if (options.clear) {
 		process.stdout.write('\033c');
 	}
 
-	// set logLevel
-	this.logLevel = 8;
-
-	if (options.logLevel) {
-		if (typeof options.logLevel === 'string') {
-			this.logLevel = logLevel[options.logLevel.toUpperCase()];
-		} else {
-			this.logLevel = options.logLevel;
-		}
-	}
-
-	// set consoleLogLevel
-	this.consoleLogLevel = this.logLevel;
-
-	if (options.consoleLogLevel) {
-		if (typeof options.consoleLogLevel === 'string') {
-			this.consoleLogLevel = logLevel[options.consoleLogLevel.toUpperCase()];
-		} else {
-			this.consoleLogLevel = options.consoleLogLevel;
-		}
-	}
-
-	// set fileLogLevel
-	this.fileLogLevel = this.logLevel;
-
-	if (options.fileLogLevel) {
-		if (typeof options.fileLogLevel === 'string') {
-			this.fileLogLevel = logLevel[options.fileLogLevel.toUpperCase()];
-		} else {
-			this.fileLogLevel = options.fileLogLevel;
-		}
-	}
-
-	// set separatorLogLevel
-	this.separatorLogLevel = this.logLevel;
-
-	if (options.separatorLogLevel) {
-		if (typeof options.separatorLogLevel === 'string') {
-			this.separatorLogLevel = logLevel[options.separatorLogLevel.toUpperCase()];
-		} else {
-			this.separatorLogLevel = options.separatorLogLevel;
-		}
-	}
-
-	// set compressedTime
-	this.compressedTime = 3;
-
-	if (options.compressedTime) {
-		if (typeof options.compressedTime === 'string') {
-			this.compressedTime = compressedTime[options.compressedTime.toUpperCase()];
-		} else {
-			this.compressedTime = options.compressedTime;
-		}
-	}
-
-	// set levelMode
-	this.levelMode = 4;
-
-	if (options.levelMode) {
-		if (typeof options.levelMode === 'string') {
-			this.levelMode = levelMode[options.levelMode.toUpperCase()];
-		} else {
-			this.levelMode = options.levelMode;
-		}
-	}
+	// set options
+	this.logLevel = applyOption(logLevel, options.logLevel, 8);
+	this.consoleLogLevel = applyOption(logLevel, options.consoleLogLevel, this.logLevel);
+	this.fileLogLevel = applyOption(logLevel, options.fileLogLevel, this.logLevel);
+	this.separatorLogLevel = applyOption(logLevel, options.separatorLogLevel, this.logLevel);
+	this.compressedTime = applyOption(compressedTime, options.compressedTime, 3);
+	this.levelMode = applyOption(levelMode, options.levelMode, 4);
 
 	// other options
-	this.path = (typeof options.path === 'undefined')?false:options.path;
-	this.prettyJSON = (typeof options.prettyJSON === 'undefined')?true:options.prettyJSON;
-	this.compressedTimeAsSeparator = (typeof options.compressedTimeAsSeparator === 'undefined')?true:options.compressedTimeAsSeparator;
+	this.path = (typeof options.path === 'undefined') ? false : options.path;
+	this.prettyJSON = (typeof options.prettyJSON === 'undefined') ? true : options.prettyJSON;
+	this.compressedTimeAsSeparator = (typeof options.compressedTimeAsSeparator === 'undefined') ? true : options.compressedTimeAsSeparator;
 
 	// check log path
 	if (this.path) {
@@ -221,38 +175,6 @@ function Module (options) {
 		this.logFile = fs.createWriteStream(path.join(this.path, moment().format('YYYY-MM-DD.HH-mm-ss') + '.log'));
 	}
 }
-
-Module.prototype.emergency = Module.prototype.emer = Module.prototype.mrgc = Module.prototype.em = function () {
-	this.applyLogLevel(1,arguments);
-};
-
-Module.prototype.alert = Module.prototype.aler = Module.prototype.alrt = Module.prototype.al = function () {
-	this.applyLogLevel(2,arguments);
-};
-
-Module.prototype.critical = Module.prototype.crit = Module.prototype.crtc = Module.prototype.cr = function () {
-	this.applyLogLevel(3,arguments);
-};
-
-Module.prototype.error = Module.prototype.erro = Module.prototype.rror = Module.prototype.er = function () {
-	this.applyLogLevel(4,arguments);
-};
-
-Module.prototype.warning = Module.prototype.warn = Module.prototype.wrng = Module.prototype.wa = function () {
-	this.applyLogLevel(5,arguments);
-};
-
-Module.prototype.notice = Module.prototype.noti = Module.prototype.notc = Module.prototype.no = function () {
-	this.applyLogLevel(6, arguments);
-};
-
-Module.prototype.info = Module.prototype.in = function () {
-	this.applyLogLevel(7, arguments);
-};
-
-Module.prototype.debug = Module.prototype.debu = Module.prototype.dbug = Module.prototype.de = function () {
-	this.applyLogLevel(8, arguments);
-};
 
 Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = function(text, sll) {
 	// apply separatorLogLevel
@@ -331,38 +253,6 @@ Module.prototype.Namespace.prototype.time = function() {
 Module.prototype.Namespace.prototype.level = function (level) {
 	// return log level string
 	return levelMode[this.levelMode][level];
-};
-
-Module.prototype.Namespace.prototype.emergency = Module.prototype.Namespace.prototype.emer = Module.prototype.Namespace.prototype.mrgc = Module.prototype.Namespace.prototype.em = function () {
-	this.applyLogLevel(1, arguments);
-};
-
-Module.prototype.Namespace.prototype.alert = Module.prototype.Namespace.prototype.aler = Module.prototype.Namespace.prototype.alrt = Module.prototype.Namespace.prototype.al = function () {
-	this.applyLogLevel(2, arguments);
-};
-
-Module.prototype.Namespace.prototype.critical = Module.prototype.Namespace.prototype.crit = Module.prototype.Namespace.prototype.crtc = Module.prototype.Namespace.prototype.cr = function () {
-	this.applyLogLevel(3, arguments);
-};
-
-Module.prototype.Namespace.prototype.error = Module.prototype.Namespace.prototype.erro = Module.prototype.Namespace.prototype.rror = Module.prototype.Namespace.prototype.er = function () {
-	this.applyLogLevel(4, arguments);
-};
-
-Module.prototype.Namespace.prototype.warning = Module.prototype.Namespace.prototype.warn = Module.prototype.Namespace.prototype.wrng = Module.prototype.Namespace.prototype.wa = function () {
-	this.applyLogLevel(5, arguments);
-};
-
-Module.prototype.Namespace.prototype.notice = Module.prototype.Namespace.prototype.noti = Module.prototype.Namespace.prototype.notc = Module.prototype.Namespace.prototype.no = function () {
-	this.applyLogLevel(6, arguments);
-};
-
-Module.prototype.Namespace.prototype.info = Module.prototype.Namespace.prototype.in = function () {
-	this.applyLogLevel(7, arguments);
-};
-
-Module.prototype.Namespace.prototype.debug = Module.prototype.Namespace.prototype.dbug = Module.prototype.Namespace.prototype.de = function () {
-	this.applyLogLevel(8, arguments);
 };
 
 Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prototype.sepa = Module.prototype.Namespace.prototype.se = function (text, sll) {
@@ -523,5 +413,25 @@ Module.prototype.level = function (level) {
 	// return log level string
 	return levelMode[this.levelMode][level];
 };
+
+// create logging functions
+var prototypeNames = [
+	['emergency', 'emer', 'mrgc', 'em'],
+	['alert', 'aler', 'alrt', 'al'],
+	['critical', 'crit', 'crtc', 'cr'],
+	['error', 'erro', 'rror', 'er'],
+	['warning', 'warn', 'wrng', 'wa'],
+	['notice', 'noti', 'notc', 'no'],
+	['info', 'in'],
+	['debug', 'debu', 'dbug', 'de']
+];
+
+for (var i = 0; i < prototypeNames.length; i++) {
+	for (var j = 0; j < prototypeNames[i].length; j++) {
+		Module.prototype[prototypeNames[i][j]] = Module.prototype.Namespace.prototype[prototypeNames[i][j]] = new Function ('this.applyLogLevel(' + (i+1) + ', arguments);');
+	}
+}
+
+// export module
 
 module.exports = Module;
