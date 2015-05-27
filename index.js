@@ -164,10 +164,8 @@ function Module (options) {
 	this.compressedTimeAsSeparator = (typeof options.compressedTimeAsSeparator === 'undefined') ? true : options.compressedTimeAsSeparator;
 
 	// check log path
-	if (this.path) {
-		if (!fs.existsSync(this.path)) {
-			mkdirp.sync(this.path);
-		}
+	if (this.path && !fs.existsSync(this.path)) {
+		mkdirp.sync(this.path);
 	}
 
 	// create logFile
@@ -185,7 +183,7 @@ Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = funct
 		var width = process.stdout.columns;
 		var time = this.time();
 		if (text) {
-			var half = (width-text.length-this.level(l-1).length-time.length+1)/2;
+			var half = (width-this.level(l-1).length-time.length-text.length+1)/2;
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' ' +
 				time +
@@ -257,7 +255,7 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 		var width = process.stdout.columns;
 		var time = this.time();
 		if (text) {
-			var half = (width-text.length-this.name.length-this.level(l-1).length-time.length)/2;
+			var half = (width-this.level(l-1).length-time.length-this.name.length-text.length)/2;
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' ' +
 				time +
@@ -271,7 +269,7 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 				logLevel[l].color(this.level(l-1)) + ' ' +
 				time +
 				this.color(this.name) + ' ' +
-				logLevel[l].color(new Array(width-this.level(l-1).length-this.name.length-time.length-1).join('-'))
+				logLevel[l].color(new Array(width-this.level(l-1).length-time.length-this.name.length-1).join('-'))
 			);
 		}
 	}
