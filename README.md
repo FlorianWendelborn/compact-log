@@ -3,6 +3,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![Code Climate](https://codeclimate.com/github/dodekeract/compact-log/badges/gpa.svg)](https://codeclimate.com/github/dodekeract/compact-log)
 [![NPM Downloads](https://img.shields.io/npm/dm/compact-log.svg)](https://www.npmjs.com/package/compact-log)
+![NPM Dependencies](https://david-dm.org/dodekeract/compact-log.png)
 
 A file and stdout logger for [node.js](https://nodejs.org), supports namespaces, colors, compressed time strings and 8 log levels.
 

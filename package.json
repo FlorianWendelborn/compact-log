@@ -1,10 +1,10 @@
 {
   "name": "compact-log",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A file and stdout logger, supports namespaces, colors, compressed time strings, json dumps and 8 log levels.",
   "main": "index.js",
   "dependencies": {
-    "cli-color": "0.x",
+    "cli-color": "1.x",
     "mkdirp": "0.x",
     "moment": "2.x"
   },
