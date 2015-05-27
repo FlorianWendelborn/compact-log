@@ -256,7 +256,7 @@ Module.prototype.debug = Module.prototype.debu = Module.prototype.dbug = Module.
 
 Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = function(text, sll) {
 	// apply separatorLogLevel
-	l = this.separatorLogLevel;
+	var l = this.separatorLogLevel;
 	if (sll) {
 		if (typeof sll === 'string') {
 			l = logLevel[sll.toUpperCase()];
@@ -367,7 +367,7 @@ Module.prototype.Namespace.prototype.debug = Module.prototype.Namespace.prototyp
 
 Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prototype.sepa = Module.prototype.Namespace.prototype.se = function (text, sll) {
 	// apply separatorLogLevel
-	l = this.separatorLogLevel;
+	var l = this.separatorLogLevel;
 	if (sll) {
 		if (typeof sll === 'string') {
 			l = logLevel[sll.toUpperCase()];
@@ -424,6 +424,8 @@ Module.prototype.updateCompressedTime = function() {
 	// log compressed time if needed
 	var currentTime = moment().startOf(compressedTime[this.compressedTime].startOf);
 	if (!this.lastLog || currentTime.isAfter(this.lastLog)) {
+		var message;
+
 		this.lastLog = currentTime;
 
 		if (this.compressedTimeAsSeparator) { // time as separator
@@ -431,12 +433,12 @@ Module.prototype.updateCompressedTime = function() {
 				moment().format(compressedTime[this.compressedTime].long);
 			var width = process.stdout.columns;
 			var half = (width-this.level(8).length-text.length+1)/2;
-			var message = this.level(8) + ' ' +
+			message = this.level(8) + ' ' +
 				new Array(Math.floor(half)).join('-') +
 				text +
 				new Array(Math.ceil(half)).join('-');
 		} else { // default
-			var message = levelMode[this.levelMode][8] + ' ' +
+			message = levelMode[this.levelMode][8] + ' ' +
 				compressedTime[this.compressedTime].message + ': ' +
 				moment().format(compressedTime[this.compressedTime].long);
 		}
@@ -467,9 +469,11 @@ Module.prototype.logger = function (l, args, namespace) {
 		var dump = [];
 		var realArgs = [];
 		for (var i = 0; i < args.length; i++) {
-			if (typeof args[i] == 'object') {
+			if (typeof args[i] === 'object') {
 				dump.push(args[i]);
-				if (typeof args[0] == 'string' && args[0].search('%j') != -1) realArgs.push(args[i]);
+				if (typeof args[0] === 'string' && args[0].search('%j') !== -1) {
+					realArgs.push(args[i]);
+				}
 			} else {
 				realArgs.push(args[i]);
 			}
@@ -484,12 +488,18 @@ Module.prototype.logger = function (l, args, namespace) {
 		o.time.stamp = time.valueOf();
 		o.level = logLevel[l].name;
 
-		if (namespace) o.namespace = namespace.name;
+		if (namespace) {
+			o.namespace = namespace.name;
+		}
 		o.message = util.format.apply(null, realArgs);
-		if (dump.length) o.dump = dump;
+		if (dump.length) {
+			o.dump = dump;
+		}
 
 		var spacer = null;
-		if (this.prettyJSON) spacer = '\t';
+		if (this.prettyJSON) {
+			spacer = '\t';
+		}
 
 		this.logFile.write(
 			JSON.stringify(o, null, spacer) +
