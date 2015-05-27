@@ -154,7 +154,7 @@ function Module (options) {
 	this.logLevel = applyOption(logLevel, options.logLevel, 8);
 	this.consoleLogLevel = applyOption(logLevel, options.consoleLogLevel, this.logLevel);
 	this.fileLogLevel = applyOption(logLevel, options.fileLogLevel, this.logLevel);
-	this.separatorLogLevel = applyOption(logLevel, options.separatorLogLevel, this.logLevel);
+	this.separatorLogLevel = applyOption(logLevel, options.separatorLogLevel, 7);
 	this.compressedTime = applyOption(compressedTime, options.compressedTime, 3);
 	this.levelMode = applyOption(levelMode, options.levelMode, 4);
 
@@ -178,14 +178,7 @@ function Module (options) {
 
 Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = function(text, sll) {
 	// apply separatorLogLevel
-	var l = this.separatorLogLevel;
-	if (sll) {
-		if (typeof sll === 'string') {
-			l = logLevel[sll.toUpperCase()];
-		} else {
-			l = sll;
-		}
-	}
+	var l = applyOption(logLevel, sll, this.separatorLogLevel);
 	
 	// log the separator
 	if (this.consoleLogLevel >= l) {
@@ -257,14 +250,7 @@ Module.prototype.Namespace.prototype.level = function (level) {
 
 Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prototype.sepa = Module.prototype.Namespace.prototype.se = function (text, sll) {
 	// apply separatorLogLevel
-	var l = this.separatorLogLevel;
-	if (sll) {
-		if (typeof sll === 'string') {
-			l = logLevel[sll.toUpperCase()];
-		} else {
-			l = sll;
-		}
-	}
+	var l = applyOption(logLevel, sll, this.separatorLogLevel);
 	
 	// log the separator
 	if (this.consoleLogLevel >= l) {
@@ -426,15 +412,14 @@ var prototypeNames = [
 	['debug', 'debu', 'dbug', 'de']
 ];
 
-for (var i = 0; i < prototypeNames.length; i++) {
-	for (var j = 0; j < prototypeNames[i].length; j++) {
-		Module.prototype[prototypeNames[i][j]] = Module.prototype.Namespace.prototype[prototypeNames[i][j]] = (function(level) {
-			return function() {
-				this.applyLogLevel(level, arguments);
-			}
-		})(i+1);
-	}
-}
+prototypeNames.forEach(function(names, level) {
+	var fn = function() {
+		this.applyLogLevel(level + 1, arguments);
+	};
+	names.forEach(function(n) {
+		Module.prototype[n] = Module.prototype.Namespace.prototype[n] = fn;
+	});
+});
 
 // export module
 
