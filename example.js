@@ -1,7 +1,8 @@
 var Log = require('./index.js');
 var log = new Log({
     path: __dirname + '/log',
-    levelMode: 'smartNoBrackets'
+    levelMode: 'smartNoBrackets',
+    clear: true
 });
 
 log.emergency('emergency');

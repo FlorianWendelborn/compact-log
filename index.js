@@ -43,7 +43,7 @@ var logLevel = {
 		color: color.bgWhite.black,
 		name: 'debug'
 	},
-	NONE: 0, NO: 0,
+	NONE: 0,
 	EMERGENCY: 1, EMER: 1, MRGC: 1, EM: 1,
 	ALERT: 2, ALER: 2, ALRT: 2, AL: 2,
 	CRITICAL: 3, CRIT: 3, CRTC: 3, CR: 3,
@@ -133,11 +133,16 @@ var levelMode = {
 };
 
 function Module (options) {
+	// clear console if desired
+	if (options.clear) {
+		process.stdout.write('\033c');
+	}
+
 	// set logLevel
 	this.logLevel = 8;
 
 	if (options.logLevel) {
-		if (typeof options.logLevel == 'string') {
+		if (typeof options.logLevel === 'string') {
 			this.logLevel = logLevel[options.logLevel.toUpperCase()];
 		} else {
 			this.logLevel = options.logLevel;
@@ -148,7 +153,7 @@ function Module (options) {
 	this.consoleLogLevel = this.logLevel;
 
 	if (options.consoleLogLevel) {
-		if (typeof options.consoleLogLevel == 'string') {
+		if (typeof options.consoleLogLevel === 'string') {
 			this.consoleLogLevel = logLevel[options.consoleLogLevel.toUpperCase()];
 		} else {
 			this.consoleLogLevel = options.consoleLogLevel;
@@ -159,7 +164,7 @@ function Module (options) {
 	this.fileLogLevel = this.logLevel;
 
 	if (options.fileLogLevel) {
-		if (typeof options.fileLogLevel == 'string') {
+		if (typeof options.fileLogLevel === 'string') {
 			this.fileLogLevel = logLevel[options.fileLogLevel.toUpperCase()];
 		} else {
 			this.fileLogLevel = options.fileLogLevel;
@@ -170,7 +175,7 @@ function Module (options) {
 	this.separatorLogLevel = this.logLevel;
 
 	if (options.separatorLogLevel) {
-		if (typeof options.separatorLogLevel == 'string') {
+		if (typeof options.separatorLogLevel === 'string') {
 			this.separatorLogLevel = logLevel[options.separatorLogLevel.toUpperCase()];
 		} else {
 			this.separatorLogLevel = options.separatorLogLevel;
@@ -181,7 +186,7 @@ function Module (options) {
 	this.compressedTime = 3;
 
 	if (options.compressedTime) {
-		if (typeof options.compressedTime == 'string') {
+		if (typeof options.compressedTime === 'string') {
 			this.compressedTime = compressedTime[options.compressedTime.toUpperCase()];
 		} else {
 			this.compressedTime = options.compressedTime;
@@ -192,7 +197,7 @@ function Module (options) {
 	this.levelMode = 4;
 
 	if (options.levelMode) {
-		if (typeof options.levelMode == 'string') {
+		if (typeof options.levelMode === 'string') {
 			this.levelMode = levelMode[options.levelMode.toUpperCase()];
 		} else {
 			this.levelMode = options.levelMode;
@@ -215,7 +220,7 @@ function Module (options) {
 	if (this.path && this.fileLogLevel) {
 		this.logFile = fs.createWriteStream(path.join(this.path, moment().format('YYYY-MM-DD.HH-mm-ss') + '.log'));
 	}
-};
+}
 
 Module.prototype.emergency = Module.prototype.emer = Module.prototype.mrgc = Module.prototype.em = function () {
 	this.applyLogLevel(1,arguments);
@@ -253,7 +258,7 @@ Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = funct
 	// apply separatorLogLevel
 	l = this.separatorLogLevel;
 	if (sll) {
-		if (typeof sll == 'string') {
+		if (typeof sll === 'string') {
 			l = logLevel[sll.toUpperCase()];
 		} else {
 			l = sll;
@@ -267,17 +272,17 @@ Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = funct
 		if (text) {
 			var half = (width-text.length-this.level(l-1).length-time.length+1)/2;
 			console.log(
-				logLevel[l].color(this.level(l-1)) + ' '
-				+ time
-				+ logLevel[l].color((Array(Math.floor(half)).join('-')
-				+ text
-				+ Array(Math.ceil(half)).join('-')))
+				logLevel[l].color(this.level(l-1)) + ' ' +
+				time +
+				logLevel[l].color((new Array(Math.floor(half)).join('-') +
+				text +
+				new Array(Math.ceil(half)).join('-')))
 			);
 		} else {
 			console.log(
-				logLevel[l].color(this.level(l-1)) + ' '
-				+ time
-				+ logLevel[l].color(Array(width-this.level(l-1).length-time.length).join('-'))
+				logLevel[l].color(this.level(l-1)) + ' ' +
+				time +
+				logLevel[l].color(new Array(width-this.level(l-1).length-time.length).join('-'))
 			);
 		}
 	}
@@ -298,8 +303,11 @@ Module.prototype.createNamespace = function(options) {
 	} else {
 		var c;
 		for (var i = 0; i < options.colors.length; i++) {
-			if (i === 0) c = color[options.colors[i]];
-			if (i !== 0) c = c[options.colors[i]];
+			if (i === 0) {
+				c = color[options.colors[i]];
+			} else {
+				c = c[options.colors[i]];
+			}
 		}
 		ns.color = c;
 	}
@@ -311,8 +319,12 @@ Module.prototype.Namespace = function () {};
 
 Module.prototype.Namespace.prototype.time = function() {
 	// return short time
-	if (this.compressedTime) this.parent.updateCompressedTime();
-	if (!compressedTime[this.compressedTime].short) return '';
+	if (this.compressedTime) {
+		this.parent.updateCompressedTime();
+	}
+	if (!compressedTime[this.compressedTime].short) {
+		return '';
+	}
 	return moment().format(compressedTime[this.compressedTime].short + ' ');
 };
 
@@ -357,7 +369,7 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 	// apply separatorLogLevel
 	l = this.separatorLogLevel;
 	if (sll) {
-		if (typeof sll == 'string') {
+		if (typeof sll === 'string') {
 			l = logLevel[sll.toUpperCase()];
 		} else {
 			l = sll;
@@ -371,19 +383,19 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 		if (text) {
 			var half = (width-text.length-this.name.length-this.level(l-1).length-time.length)/2;
 			console.log(
-				logLevel[l].color(this.level(l-1)) + ' '
-				+ time
-				+ this.color(this.name) + ' '
-				+ logLevel[l].color((Array(Math.floor(half)).join('-')
-				+ text
-				+ Array(Math.ceil(half)).join('-')))
+				logLevel[l].color(this.level(l-1)) + ' ' +
+				time +
+				this.color(this.name) + ' ' +
+				logLevel[l].color((new Array(Math.floor(half)).join('-') +
+				text +
+				new Array(Math.ceil(half)).join('-')))
 			);
 		} else {
 			console.log(
-				logLevel[l].color(this.level(l-1)) + ' '
-				+ time
-				+ this.color(this.name) + ' '
-				+ logLevel[l].color(Array(width-this.level(l-1).length-this.name.length-time.length-1).join('-'))
+				logLevel[l].color(this.level(l-1)) + ' ' +
+				time +
+				this.color(this.name) + ' ' +
+				logLevel[l].color(new Array(width-this.level(l-1).length-this.name.length-time.length-1).join('-'))
 			);
 		}
 	}
@@ -394,10 +406,10 @@ Module.prototype.Namespace.prototype.applyLogLevel = function (l, args) {
 		var message = util.format.apply(null, args);
 		if (this.consoleLogLevel > l-1) {
 			console.log(
-				logLevel[l].color(this.level(l-1)) + ' '
-				+ this.time()
-				+ this.color(this.name) + ' '
-				+ message
+				logLevel[l].color(this.level(l-1)) + ' ' +
+				this.time() +
+				this.color(this.name) + ' ' +
+				message
 			);
 		}
 		if (this.fileLogLevel > l-1 && this.parent.logFile) {
@@ -415,18 +427,18 @@ Module.prototype.updateCompressedTime = function() {
 		this.lastLog = currentTime;
 
 		if (this.compressedTimeAsSeparator) { // time as separator
-			var text = compressedTime[this.compressedTime].message + ': '
-				+ moment().format(compressedTime[this.compressedTime].long);
+			var text = compressedTime[this.compressedTime].message + ': ' +
+				moment().format(compressedTime[this.compressedTime].long);
 			var width = process.stdout.columns;
 			var half = (width-this.level(8).length-text.length+1)/2;
-			var message = this.level(8) + ' '
-				+ Array(Math.floor(half)).join('-')
-				+ text
-				+ Array(Math.ceil(half)).join('-');
+			var message = this.level(8) + ' ' +
+				new Array(Math.floor(half)).join('-') +
+				text +
+				new Array(Math.ceil(half)).join('-');
 		} else { // default
-			var message = levelMode[this.levelMode][8] + ' '
-				+ compressedTime[this.compressedTime].message + ': '
-				+ moment().format(compressedTime[this.compressedTime].long)
+			var message = levelMode[this.levelMode][8] + ' ' +
+				compressedTime[this.compressedTime].message + ': ' +
+				moment().format(compressedTime[this.compressedTime].long);
 		}
 
 		// log it
@@ -439,9 +451,9 @@ Module.prototype.applyLogLevel = function(l, args) {
 		var message = util.format.apply(null, args);
 		if (this.consoleLogLevel > l-1) {
 			console.log(
-				logLevel[l].color(this.level(l-1)) + ' '
-				+ this.time()
-				+ message
+				logLevel[l].color(this.level(l-1)) + ' ' +
+				this.time() +
+				message
 			);
 		}
 		if (this.fileLogLevel > l-1 && this.logFile) {
@@ -488,8 +500,12 @@ Module.prototype.logger = function (l, args, namespace) {
 
 Module.prototype.time = function() {
 	// return short time
-	if (this.compressedTime) this.updateCompressedTime();
-	if (!compressedTime[this.compressedTime].short) return '';
+	if (this.compressedTime) {
+		this.updateCompressedTime();
+	}
+	if (!compressedTime[this.compressedTime].short) {
+		return '';
+	}
 	return moment().format(compressedTime[this.compressedTime].short + ' ');
 };
 

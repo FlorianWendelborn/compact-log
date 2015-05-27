@@ -64,17 +64,18 @@ If you want to save it as a dependency in ````package.json```` you should use ``
 ## options
 You can pass options when calling ````new Log(options)````. Options is an object which can contain the following attributes.
 
-|                attribute|default value    |description                                                                                                                                   |
-|------------------------:|:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------|
-|                 logLevel|'debug'          |sets the logLevel for console & file logs                                                                                                     |
-|          consoleLogLevel|=logLevel        |overrides the logLevel for consoleLogs only                                                                                                  |
-|             fileLogLevel|=logLevel        |overrides the logLevel for fileLogs only                                                                                                     |
-|        separatorLogLevel|=logLevel        |sets the default logLevel for separators                                                                                                      |
+|                attribute|default value    |description                                                                                                                                    |
+|------------------------:|:----------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
+|                 logLevel|'debug'          |sets the logLevel for console & file logs                                                                                                      |
+|          consoleLogLevel|=logLevel        |overrides the logLevel for consoleLogs only                                                                                                    |
+|             fileLogLevel|=logLevel        |overrides the logLevel for fileLogs only                                                                                                       |
+|        separatorLogLevel|=logLevel        |sets the default logLevel for separators                                                                                                       |
 |           compressedTime|'day'            |shortens the timestamp of each output and logs a time-update output when the given time period is exceeded (e.g. every day) and a log is issued|
-|                levelMode|'shortNoBrackets'|allows changing of the level names (e.g. ERROR -> E)                                                                                          |
-|                     path|false            |sets the log folder                                                                                                                           |
-|compressedTimeAsSeparator|true             |allows disabling the separator layout for compressedTime-messages                                                                             |
-|               prettyJSON|true             |prints the log file's JSON with tab characters and newlines                                                                                   |
+|                levelMode|'shortNoBrackets'|allows changing of the level names (e.g. ERROR -> E)                                                                                           |
+|                    clear|false            |clears the console when a new log instance is created                                                                                          |
+|                     path|false            |sets the log folder                                                                                                                            |
+|compressedTimeAsSeparator|true             |allows disabling the separator layout for compressedTime-messages                                                                              |
+|               prettyJSON|true             |prints the log file's JSON with tab characters and newlines                                                                                    |
 
 ### Accepted values for these options
 - **logLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
@@ -83,6 +84,7 @@ You can pass options when calling ````new Log(options)````. Options is an object
 - **separatorLogLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
 - **compressedTime:** none, year, month, **day**, hour, minute, second
 - **levelMode:** short, smart, full, tiny, **shortNoBrackets**, smartNoBrackets, fullNoBrackets, tinyNoBrackets, numbers, single
+- **clear** **false**, true
 - **path:** **false** or any path to a (existing or non-existing) folder
 - **compressedTimeAsSeparator:** **true**, false
 - **prettyJSON:** **true**, false
