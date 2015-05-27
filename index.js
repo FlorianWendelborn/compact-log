@@ -428,7 +428,11 @@ var prototypeNames = [
 
 for (var i = 0; i < prototypeNames.length; i++) {
 	for (var j = 0; j < prototypeNames[i].length; j++) {
-		Module.prototype[prototypeNames[i][j]] = Module.prototype.Namespace.prototype[prototypeNames[i][j]] = new Function ('this.applyLogLevel(' + (i+1) + ', arguments);');
+		Module.prototype[prototypeNames[i][j]] = Module.prototype.Namespace.prototype[prototypeNames[i][j]] = (function(level) {
+			return function() {
+				this.applyLogLevel(level, arguments);
+			}
+		})(i+1);
 	}
 }
 
