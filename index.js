@@ -157,6 +157,7 @@ function Module (options) {
 	this.separatorLogLevel = applyOption(logLevel, options.separatorLogLevel, 7);
 	this.compressedTime = applyOption(compressedTime, options.compressedTime, 3);
 	this.levelMode = applyOption(levelMode, options.levelMode, 4);
+	this.alternativeColumnCount = options.alternativeColumnCount || 100;
 
 	// other options
 	this.path = (typeof options.path === 'undefined') ? false : options.path;
@@ -180,10 +181,13 @@ Module.prototype.separator = Module.prototype.sepa = Module.prototype.se = funct
 	
 	// log the separator
 	if (this.consoleLogLevel >= l) {
-		var width = process.stdout.columns;
+		var width = process.stdout.columns || this.alternativeColumnCount;
 		var time = this.time();
 		if (text) {
 			var half = (width-this.level(l-1).length-time.length-text.length+1)/2;
+			if (half < 1) {
+				half = 1;
+			}
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' ' +
 				time +
@@ -211,6 +215,7 @@ Module.prototype.createNamespace = function(options) {
 	ns.compressedTime = this.compressedTime;
 	ns.levelMode = this.levelMode;
 	ns.name = options.name;
+	ns.alternativeColumnCount = this.alternativeColumnCount;
 	if (!options.colors) {
 		ns.color = color.bgWhite.black;
 	} else {
@@ -252,7 +257,10 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 	
 	// log the separator
 	if (this.consoleLogLevel >= l) {
-		var width = process.stdout.columns;
+		var width = process.stdout.columns || this.alternativeColumnCount;
+		if (half < 1) {
+			half = 1;
+		}
 		var time = this.time();
 		if (text) {
 			var half = (width-this.level(l-1).length-time.length-this.name.length-text.length)/2;
@@ -305,8 +313,11 @@ Module.prototype.updateCompressedTime = function() {
 		if (this.compressedTimeAsSeparator) { // time as separator
 			var text = compressedTime[this.compressedTime].message + ': ' +
 				moment().format(compressedTime[this.compressedTime].long);
-			var width = process.stdout.columns;
+			var width = process.stdout.columns || this.alternativeColumnCount;
 			var half = (width-this.level(8).length-text.length+1)/2;
+			if (half < 1) {
+				half = 1;
+			}
 			message = this.level(8) + ' ' +
 				new Array(Math.floor(half)).join('-') +
 				text +

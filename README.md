@@ -82,6 +82,7 @@ You can pass options when calling ````new Log(options)````. Options is an object
 |                     path|false            |sets the log folder                                                                                                                            |
 |compressedTimeAsSeparator|true             |allows disabling the separator layout for compressedTime-messages                                                                              |
 |               prettyJSON|true             |prints the log file's JSON with tab characters and newlines                                                                                    |
+|   alternativeColumnCount|100              |sets the amount of console columns if process.stdout.columns is not defined                                                                    |
 
 ### Accepted values for these options
 - **logLevel:** none, emergency, alert, critical, error, warning, notice, info, **debug**, 0-8
