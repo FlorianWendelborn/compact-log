@@ -258,12 +258,12 @@ Module.prototype.Namespace.prototype.separator = Module.prototype.Namespace.prot
 	// log the separator
 	if (this.consoleLogLevel >= l) {
 		var width = process.stdout.columns || this.alternativeColumnCount;
-		if (half < 1) {
-			half = 1;
-		}
 		var time = this.time();
 		if (text) {
 			var half = (width-this.level(l-1).length-time.length-this.name.length-text.length)/2;
+			if (half < 1) {
+				half = 1;
+			}
 			console.log(
 				logLevel[l].color(this.level(l-1)) + ' ' +
 				time +
