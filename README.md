@@ -1,5 +1,7 @@
 # compact-log
 
+[![Join the chat at https://gitter.im/dodekeract/compact-log](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dodekeract/compact-log?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![Code Climate](https://codeclimate.com/github/dodekeract/compact-log/badges/gpa.svg)](https://codeclimate.com/github/dodekeract/compact-log)
 [![NPM Downloads](https://img.shields.io/npm/dm/compact-log.svg)](https://www.npmjs.com/package/compact-log)
