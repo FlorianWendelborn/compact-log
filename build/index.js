@@ -3,21 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.constants = undefined;
+exports.logger = exports.level = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _chalk = require('chalk');
-
-var _chalk2 = _interopRequireDefault(_chalk);
-
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
 
 var _namespace = require('./namespace');
 
 var _namespace2 = _interopRequireDefault(_namespace);
+
+var _consoleLogger = require('./console-logger');
+
+var _consoleLogger2 = _interopRequireDefault(_consoleLogger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -87,7 +83,7 @@ var Module = function (_Namespace) {
 }(_namespace2.default);
 
 exports.default = Module;
-var constants = exports.constants = {
+var level = exports.level = {
 	EMERGENCY: 7,
 	ALERT: 6,
 	CRITICAL: 5,
@@ -95,6 +91,9 @@ var constants = exports.constants = {
 	WARNING: 3,
 	NOTICE: 2,
 	INFO: 1,
-	DEBUG: 0,
-	SEPARATOR: 'separator'
+	DEBUG: 0
+};
+
+var logger = exports.logger = {
+	Console: _consoleLogger2.default
 };

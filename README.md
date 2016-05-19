@@ -8,7 +8,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/compact-log.svg)](https://www.npmjs.com/package/compact-log)
 [![NPM Dependencies](https://david-dm.org/dodekeract/compact-log.svg)](https://david-dm.org/dodekeract/compact-log)
 
-General purpose logger for [node.js](https://nodejs.org), supports namespaces, colors, compact time and 8 log levels.
+General purpose JavaScript logger, supports namespaces, colors, compact time and 8 log levels.
 
 ## Example
 ![screenshot](https://github.com/dodekeract/raw/raw/master/compact-log.png)

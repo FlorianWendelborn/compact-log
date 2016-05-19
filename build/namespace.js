@@ -40,50 +40,86 @@ var Namespace = function (_EventEmitter) {
 		}
 	}, {
 		key: 'emergency',
-		value: function emergency(message) {
-			this.main.emit('log', _.constants.EMERGENCY, message);
+		value: function emergency() {
+			for (var _len = arguments.length, messages = Array(_len), _key = 0; _key < _len; _key++) {
+				messages[_key] = arguments[_key];
+			}
+
+			this.main.emit('log', this.id, level.EMERGENCY, messages);
 		}
 	}, {
 		key: 'alert',
-		value: function alert(message) {
-			this.main.emit('log', _.constants.ALERT, message);
+		value: function alert() {
+			for (var _len2 = arguments.length, messages = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+				messages[_key2] = arguments[_key2];
+			}
+
+			this.main.emit('log', this.id, level.ALERT, messages);
 		}
 	}, {
 		key: 'critical',
-		value: function critical(message) {
-			this.main.emit('log', _.constants.CRITICAL, message);
+		value: function critical() {
+			for (var _len3 = arguments.length, messages = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+				messages[_key3] = arguments[_key3];
+			}
+
+			this.main.emit('log', this.id, level.CRITICAL, messages);
 		}
 	}, {
 		key: 'error',
-		value: function error(message) {
-			this.main.emit('log', _.constants.ERROR, message);
+		value: function error() {
+			for (var _len4 = arguments.length, messages = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+				messages[_key4] = arguments[_key4];
+			}
+
+			this.main.emit('log', this.id, level.ERROR, messages);
 		}
 	}, {
 		key: 'warning',
-		value: function warning(message) {
-			this.main.emit('log', _.constants.WARNING, message);
+		value: function warning() {
+			for (var _len5 = arguments.length, messages = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+				messages[_key5] = arguments[_key5];
+			}
+
+			this.main.emit('log', this.id, level.WARNING, messages);
 		}
 	}, {
 		key: 'notice',
-		value: function notice(message) {
-			this.main.emit('log', _.constants.NOTICE, message);
+		value: function notice() {
+			for (var _len6 = arguments.length, messages = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+				messages[_key6] = arguments[_key6];
+			}
+
+			this.main.emit('log', this.id, level.NOTICE, messages);
 		}
 	}, {
 		key: 'info',
-		value: function info(message) {
-			this.main.emit('log', _.constants.INFO, message);
+		value: function info() {
+			for (var _len7 = arguments.length, messages = Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+				messages[_key7] = arguments[_key7];
+			}
+
+			this.main.emit('log', this.id, level.INFO, messages);
 		}
 	}, {
 		key: 'debug',
-		value: function debug(message) {
-			this.main.emit('log', _.constants.DEBUG, message);
+		value: function debug() {
+			for (var _len8 = arguments.length, messages = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+				messages[_key8] = arguments[_key8];
+			}
+
+			this.main.emit('log', this.id, level.DEBUG, messages);
 		}
 	}, {
 		key: 'separator',
-		value: function separator(message) {
-			var level = arguments.length <= 1 || arguments[1] === undefined ? _.constants.DEBUG : arguments[1];
+		value: function separator() {
+			var level = arguments.length <= 0 || arguments[0] === undefined ? level.DEBUG : arguments[0];
 
-			this.main.emit('separator', level, message);
+			for (var _len9 = arguments.length, messages = Array(_len9 > 1 ? _len9 - 1 : 0), _key9 = 1; _key9 < _len9; _key9++) {
+				messages[_key9 - 1] = arguments[_key9];
+			}
+
+			this.main.emit('separator', this.id, level, messages);
 		}
 	}, {
 		key: 'getParents',

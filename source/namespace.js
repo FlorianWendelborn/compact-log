@@ -1,4 +1,4 @@
-import {constants} from './';
+import {level} from './';
 import {EventEmitter} from 'events';
 
 export default class Namespace extends EventEmitter {
@@ -18,40 +18,40 @@ export default class Namespace extends EventEmitter {
 		return this.main.addNamespace(this.id, options);
 	}
 
-	emergency (message) {
-		this.main.emit('log', constants.EMERGENCY, message);
+	emergency (...messages) {
+		this.main.emit('log', this.id, level.EMERGENCY, messages);
 	}
 
-	alert (message) {
-		this.main.emit('log', constants.ALERT, message);
+	alert (...messages) {
+		this.main.emit('log', this.id, level.ALERT, messages);
 	}
 
-	critical (message) {
-		this.main.emit('log', constants.CRITICAL, message);
+	critical (...messages) {
+		this.main.emit('log', this.id, level.CRITICAL, messages);
 	}
 
-	error (message) {
-		this.main.emit('log', constants.ERROR, message);
+	error (...messages) {
+		this.main.emit('log', this.id, level.ERROR, messages);
 	}
 
-	warning (message) {
-		this.main.emit('log', constants.WARNING, message);
+	warning (...messages) {
+		this.main.emit('log', this.id, level.WARNING, messages);
 	}
 
-	notice (message) {
-		this.main.emit('log', constants.NOTICE, message);
+	notice (...messages) {
+		this.main.emit('log', this.id, level.NOTICE, messages);
 	}
 
-	info (message) {
-		this.main.emit('log', constants.INFO, message);
+	info (...messages) {
+		this.main.emit('log', this.id, level.INFO, messages);
 	}
 
-	debug (message) {
-		this.main.emit('log', constants.DEBUG, message);
+	debug (...messages) {
+		this.main.emit('log', this.id, level.DEBUG, messages);
 	}
 
-	separator (message, level = constants.DEBUG) {
-		this.main.emit('separator', level, message);
+	separator (level = level.DEBUG, ...messages) {
+		this.main.emit('separator', this.id, level, messages);
 	}
 
 	getParents () {

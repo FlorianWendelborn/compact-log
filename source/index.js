@@ -1,6 +1,6 @@
-import chalk from 'chalk';
-import moment from 'moment';
 import Namespace from './namespace';
+
+import ConsoleLogger from './console-logger';
 
 export default class Module extends Namespace {
 
@@ -50,7 +50,7 @@ export default class Module extends Namespace {
 
 }
 
-export let constants = {
+export let level = {
 	EMERGENCY: 7,
 	ALERT: 6,
 	CRITICAL: 5,
@@ -58,6 +58,9 @@ export let constants = {
 	WARNING: 3,
 	NOTICE: 2,
 	INFO: 1,
-	DEBUG: 0,
-	SEPARATOR: 'separator'
+	DEBUG: 0
+};
+
+export let logger = {
+	Console: ConsoleLogger
 };
