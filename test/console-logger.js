@@ -24,7 +24,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.EMERGENCY, 'something something')
 			).to.be(
-				'7 0 something something'
+				'MRGC 0 something something'
 			);
 		});
 
@@ -32,7 +32,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.ALERT, 'something something')
 			).to.be(
-				'6 0 something something'
+				'ALRT 0 something something'
 			);
 		});
 
@@ -40,7 +40,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.CRITICAL, 'something something')
 			).to.be(
-				'5 0 something something'
+				'CRTC 0 something something'
 			);
 		});
 
@@ -48,7 +48,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.ERROR, 'something something')
 			).to.be(
-				'4 0 something something'
+				'RROR 0 something something'
 			);
 		});
 
@@ -56,7 +56,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.WARNING, 'something something')
 			).to.be(
-				'3 0 something something'
+				'WRNG 0 something something'
 			);
 		});
 
@@ -64,7 +64,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.NOTICE, 'something something')
 			).to.be(
-				'2 0 something something'
+				'NOTC 0 something something'
 			);
 		});
 
@@ -72,7 +72,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.INFO, 'something something')
 			).to.be(
-				'1 0 something something'
+				'INFO 0 something something'
 			);
 		});
 
@@ -80,7 +80,7 @@ describe('console-logger', () => {
 			expect(
 				logger.log(0, level.DEBUG, 'something something')
 			).to.be(
-				'0 0 something something'
+				'DBUG 0 something something'
 			);
 		});
 
