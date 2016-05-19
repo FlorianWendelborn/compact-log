@@ -1,0 +1,57 @@
+{
+  "name": "compact-log",
+  "version": "0.1.3",
+  "description": "General purpose logger, supports namespaces, colors, compact time and 8 log levels.",
+  "main": "build/",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "minimalism": "^0.0.3",
+    "moment": "^2.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dodekeract/compact-log"
+  },
+  "keywords": [
+    "log",
+    "color",
+    "compressed",
+    "compact",
+    "time",
+    "file",
+    "level",
+    "namespace",
+    "namespaces"
+  ],
+  "scripts": {
+    "test": "npm run build --silent && nyc --require babel-core/register mocha",
+    "build": "babel --presets es2015 source/ -d build/",
+    "prepublish": "npm run build",
+    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
+    "postinstall": "node node_modules/minimalism/source",
+    "start": "node build/",
+    "watch": "nodemon --watch source --exec \"npm run build --silent && npm run start --silent\"",
+    "watch-test": "nodemon --watch source --watch test --exec \"npm run test --silent\"",
+    "travis": "npm run test && nyc report --reporter=text-lcov | coveralls"
+  },
+  "author": "Florian Wendelborn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dodekeract/compact-log/issues"
+  },
+  "homepage": "https://github.com/dodekeract/compact-log",
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.9.0",
+    "coveralls": "^2.11.9",
+    "expect.js": "^0.3.1",
+    "mocha": "^2.4.5",
+    "nodemon": "^1.9.2",
+    "nyc": "^6.4.4"
+  },
+  "minimalism": {
+    ".babelrc": "{ \"presets\": [\"es2015\"] }"
+  }
+}
